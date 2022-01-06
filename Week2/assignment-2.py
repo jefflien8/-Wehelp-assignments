@@ -40,16 +40,19 @@ avg({
 #3
 def maxProduct(nums):
     # 請用你的程式補完這個函式的區塊
-    m1=max(nums)
-    if m1==0:
-        n1=min(nums)
-        nums.remove(n1)
-        n2=min(nums)
-        print(n1*n2)
-    if m1>0:
-        nums.remove(m1)
-        m2=max(nums)
-        print(m1*m2)
+    ans=None
+    current=0
+    for i in nums:
+        for j in nums:
+            if i==j:
+                continue
+            current=i*j
+            if (ans is None):
+                ans=current
+            if current>ans:
+                ans=current
+    print(ans)
+
 
 maxProduct([5, 20, 2, 6]) # 得到 120
 maxProduct([10, -20, 0, 3]) # 得到 30
