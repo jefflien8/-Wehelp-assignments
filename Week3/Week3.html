@@ -1,0 +1,76 @@
+<!DOCTYPE CSS>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <title>臺北市觀光景點</title>
+    <link rel="stylesheet" type="text/css" href="layout.css">
+</head>
+
+<body onload="getData();">
+    <div class="head">
+        <div class="title">臺北市</div>
+        <div class="right">
+            <div class="item">首頁</div>
+            <div class="item">交通</div>
+            <div class="item">簡介</div>
+            <div class="item">其他</div>
+        </div>   
+        <div class=logo>
+        <img class=logo src="hamburger.png" />
+        </div>
+    </div>
+
+    <div class="welcome">
+        <div class="text">臺北市觀光景點</div>
+    </div>
+
+    <div class=frame id=0></div>
+    
+    <script type="text/javascript">
+        let allnames = [];
+        let allpics = [];
+        function getData(){
+            return new Promise((resolve,reject)=>{
+            let req=new XMLHttpRequest();
+            req.open('get','https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json')
+            
+            req.onload=function(){
+                if (req.status==200){
+                    resolve (JSON.parse(req.response));
+                }else{
+                    reject (new Error(req))
+                }
+                let data=JSON.parse(req.response);
+                let list=data.result.results;
+                for (let i in list){
+                    let names=list[i].stitle;
+                    allnames.push(names);
+                    let pics="https"+list[i].file.split("https")[1];
+                    allpics.push(pics);
+                }
+            }
+            req.send()
+            });
+        }
+        let promise=getData();
+        promise.then(function(result){
+            for (i=0;i<8;i++){
+                let list=document.getElementById('0');
+                let newDiv=document.createElement('div');
+                list.appendChild(newDiv);
+                newDiv.className='pic';
+                let image = document.createElement('img');
+                newDiv.appendChild(image);
+                let objectURL =allpics[i];
+                image.src = objectURL;                
+                let spotname=allnames[i];
+                let textNode=document.createTextNode(spotname);
+                newDiv.appendChild(textNode);
+            }
+        }).catch(function(err){
+            alert(err);
+        }); 
+    </script>
+</body>
+</html>
