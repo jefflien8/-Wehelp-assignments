@@ -73,34 +73,35 @@
             alert(err);
         }); 
         let clicks=0;
-            function loadData(){
-                clicks++;
-                console.log(clicks);
-                let promise=getData();
-                promise.then(function(result){
-                    for (i==clicks*8;i<clicks*8+8;i++){
-                        if (i>57){
-                            break;
-                        }
-                        if (clicks>7){
-                            break;
-                        }
-                        let list=document.getElementById('0');
-                        let newDiv=document.createElement('div');
-                        list.appendChild(newDiv);
-                        newDiv.className='pic';
-                        let image = document.createElement('img');
-                        newDiv.appendChild(image); 
-                        let objectURL =allpics[i];
-                        image.src = objectURL;                
-                        let spotname=allnames[i];
-                        let textNode=document.createTextNode(spotname);
-                        newDiv.appendChild(textNode);
+        function loadData(){
+            clicks++;
+            console.log(clicks);
+            
+            let promise=getData();
+            promise.then(function(result){
+                for (i==clicks*8;i<clicks*8+8;i++){
+                    if (i>57){
+                        break;
                     }
-                }).catch(function(err){
-                    alert(err);
-                }); 
-            }
+                    if (clicks>7){
+                        break;
+                    }
+                    let list=document.getElementById('0');
+                    let newDiv=document.createElement('div');
+                    list.appendChild(newDiv);
+                    newDiv.className='pic';
+                    let image = document.createElement('img');
+                    newDiv.appendChild(image); 
+                    let objectURL =allpics[i];
+                    image.src = objectURL;                
+                    let spotname=allnames[i];
+                    let textNode=document.createTextNode(spotname);
+                    newDiv.appendChild(textNode);
+                }
+            }).catch(function(err){
+                alert(err);
+            }); 
+        }
     </script>
 </body>
 </html>
