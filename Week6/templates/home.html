@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>會員登入系統</title>
+</head>
+
+<body>
+    <center>
+    <h3>註冊帳號</h3>
+    <form action="/signup" method="POST">
+        <p>姓名：
+        <input type="text" name="name" />
+        </p>
+        <p>帳號：
+        <input type="text" name="username" />
+        </p>
+        <p>密碼：
+        <input type="password" name="password" />
+        </p>
+        
+        </br>
+        <input type="submit" value="註冊" />
+    </form>
+    <hr>
+    <h3>登入系統</h3>
+    <form action="/signin" method="POST">
+        <p>帳號：
+        <input type="text" name="username" />
+        </p>
+        <p>密碼：
+        <input type="password" name="password" />
+        </p>
+        </br>
+        <input type="submit" value="登入" />
+    </form>
+    </center>
+</body>
+</html>
