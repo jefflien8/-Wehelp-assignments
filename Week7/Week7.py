@@ -26,4 +26,4 @@ def error():
     message=request.args.get("message")
     return render_template("error.html", message=message)
 
-frontEnd.run(host="0.0.0.0",port=3000,debug=True)
+frontEnd.run(port=3000,debug=True)

@@ -1,9 +1,6 @@
-from unicodedata import name
 import pymysql
 from flask import url_for,request,redirect,session,Blueprint,jsonify
 from flask_cors import CORS
-import json
-from pymysql import NULL
 backEnd = Blueprint('blueprint', __name__)
 CORS(backEnd)
 
@@ -16,17 +13,7 @@ db=pymysql.connect(
     charset='utf8'
     )
 cursor=db.cursor()
-
-# @backEnd.before_first_request
-# def before_first_request():
-#     # configure the connection pool in the global object
-#     g.cnx_pool = mysql.connector.pooling.MySQLConnectionPool(
-#         pool_name="name",pool_size=10,autocommit=True,
-#         user='root',
-#         password='123456',
-#         host='locolhost',
-#         database=db)
-        
+   
 @backEnd.route("/signup", methods=["POST"])
 def signup():
     newname=request.form["name"]
@@ -94,6 +81,7 @@ def api():
 
 @backEnd.route("/api/member", methods=["POST"])
 def changeName():
+    print(session["username"])
     if session["username"]==None:
         return jsonify({"error":True})
     else:
@@ -107,6 +95,5 @@ def changeName():
             db.rollback()
             print('error')
         db.close
-        return jsonify({"ok":True})
-
-    
+        return jsonify({"ok":True})  
+        

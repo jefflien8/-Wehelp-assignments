@@ -34,7 +34,7 @@
             return response.json(); 
         })
         .then((jsonData) => {
-            if (jsonData.data=="null"){
+            if (jsonData.data==null){
                 document.getElementById("result").innerText="查無此帳號";
             }else{
             let searchName=jsonData.data.name;
