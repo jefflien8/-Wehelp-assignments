@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>已登入</title>
+</head>
+
+<body>
+<center>
+    <h3>{{name}}您好，已成功登入</h3>
+    <a href="/signout">登出系統</a>
+    </br>
+    <h2>查詢會員姓名</h2>
+    <input type="text" id="username"/>
+    <input type="submit" value="查詢" onclick="searchUser()"/>
+    </br>
+    <h3 id="result"></h3>
+    </br>
+    <h2>更新我的姓名</h2>
+    <input type="text" id="changeName"/>
+    <input type="submit" value="更新" onclick="newName()"/>
+    </br>
+    <h3 id="newName"></h3>
+</center>
+    <script type="text/javascript">
+    function searchUser(){
+        let usernameElement=document.getElementById("username");
+        let username=usernameElement.value;
+        console.log(username);
+        url="http://127.0.0.1:3000/api/members?username="+username
+        fetch(url, {method:"GET"})
+        .then((response) => {
+            console.log(response);
+            return response.json(); 
+        })
+        .then((jsonData) => {
+            if (jsonData.data=="null"){
+                document.getElementById("result").innerText="查無此帳號";
+            }else{
+            let searchName=jsonData.data.name;
+            let searchUsername=jsonData.data.username;
+            let result=searchName+"("+searchUsername+")";
+            document.getElementById("result").innerText=result;
+            }
+        })
+        .catch((err) => {
+            console.log('錯誤:', err);
+        });
+    }
+    function newName(){
+        let newNameElement=document.getElementById("changeName");
+        let newName=newNameElement.value;
+        console.log(newName);
+        url="http://127.0.0.1:3000/api/member"
+        fetch(url, {
+            body:JSON.stringify({
+                "name":newName
+            }),
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            method: 'POST'
+        })
+        .then((response) => {
+            console.log(response);
+            return response.json(); 
+        })
+        .then((jsonData) => {
+            if (jsonData.ok==true){
+                document.getElementById("newName").innerText="更新成功";
+            }else{
+                document.getElementById("newName").innerText="更新失敗";
+            }
+        })
+        .catch((err) => {
+            console.log('錯誤:', err);
+        });
+    }
+    </script>
+</body>
+</html>
